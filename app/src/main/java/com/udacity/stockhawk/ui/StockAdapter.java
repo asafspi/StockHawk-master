@@ -2,23 +2,30 @@ package com.udacity.stockhawk.ui;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import yahoofinance.YahooFinance;
 
 class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
 
@@ -28,6 +35,7 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
     final private DecimalFormat percentageFormat;
     private Cursor cursor;
     private StockAdapterOnClickHandler clickHandler;
+    public static String STOCK_SYMBOL = "stock symbol";
 
     StockAdapter(Context context, StockAdapterOnClickHandler clickHandler) {
         this.context = context;
@@ -125,14 +133,17 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(final View v) {
             int adapterPosition = getAdapterPosition();
             cursor.moveToPosition(adapterPosition);
             int symbolColumn = cursor.getColumnIndex(Contract.Quote.COLUMN_SYMBOL);
             clickHandler.onClick(cursor.getString(symbolColumn));
+            //Log.d("zaq  ",Contract.Quote.COLUMN_SYMBOL);
+           // Toast.makeText(v.getContext(), YahooFinance.get(cursor.getString(Contract.Quote.POSITION_SYMBOL)).getHistory().toString(),Toast.LENGTH_LONG).show();
+            Intent historyIntent = new Intent(v.getContext(), StockHistoryActivity.class);
+            historyIntent.putExtra(STOCK_SYMBOL, cursor.getString(Contract.Quote.POSITION_SYMBOL));
+            v.getContext().startActivity(historyIntent);
 
         }
-
-
     }
 }
