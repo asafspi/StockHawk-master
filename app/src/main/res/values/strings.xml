@@ -30,12 +30,15 @@
     <string name="dialog_add">Add</string>
 
     <string name="error_stock_not_found">Symbol %s is invalid!</string>
-    <string name="error_no_network">No network connectivity! Will load stock cursor when the network is available.</string>
+    <!--<string name="error_no_network">No network connectivity! Will load stock cursor when the network is available.</string>-->
+    <string name="error_no_network">There is no internet connection.\nPlease connect to the internet in order to get data for your stocks.\nThank you and sorry for the inconvenience. </string>
     <string name="error_no_stocks">No stocks added! Hit the floating action button to add one.</string>
 
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
     <string name="add_stock_to_you_list">Add Stock to you list</string>
     <string name="change_between">Change between dollar or presents</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>
